@@ -13,7 +13,6 @@ class _CategoryViewState extends State<CategoryView> {
   late Future<List<dynamic>> FutureData;
 
   List<dynamic>? products;
-
   @override
   void initState() {
     FutureData = featchData();
@@ -38,6 +37,9 @@ class _CategoryViewState extends State<CategoryView> {
       throw Exception('Failed to load post');
     }
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +55,10 @@ class _CategoryViewState extends State<CategoryView> {
             return Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(30),
-               
-                  
-                  // width: 100,
+                  padding: EdgeInsets.all(30),                         
+                 // width: 100,
                   // height: 100,
+
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.grey,

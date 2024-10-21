@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +10,6 @@ class Category2 extends StatefulWidget {
 }
 
 class _Category2State extends State<Category2> {
-  
   late Future<List<dynamic>> futureData;
 
   List<dynamic>? products;
@@ -24,7 +21,6 @@ class _Category2State extends State<Category2> {
   }
 
   Future<List<dynamic>> fetchData() async {
-
     final response =
         await http.get(Uri.parse('https://fakestoreapi.com/products'));
 
@@ -42,16 +38,14 @@ class _Category2State extends State<Category2> {
 
 
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Category 2'),
       ),
-      body: products == null 
-          ? Center(child: CircularProgressIndicator()) 
+      body: products == null
+          ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: products!.length,
@@ -69,12 +63,10 @@ class _Category2State extends State<Category2> {
                       ),
                     ],
                     image: DecorationImage(
-                      image: NetworkImage(products![index]['image'],
-                      
-                      
+                      image: NetworkImage(
+                        products![index]['image'],
                       ),
-                      fit: BoxFit.cover, 
-                     
+                      fit: BoxFit.cover,
                     ),
                   ),
                   child: Column(

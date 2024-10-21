@@ -16,11 +16,45 @@ class _CartScreenState extends State<CartScreen> {
     'Nike Shoe',
   ];
   var pSizes = [
-    ' 36',
-    'M ',
+    '36',
+    'M',
     'S',
     '40',
   ];
+
+  List<int> productCounts = [1, 1, 1, 1];
+  List<double> productPrices = [19, 9, 39, 49];
+  double totalPrice = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    totalPrice = calculateTotalPrice();
+  }
+
+  double calculateTotalPrice() {
+    double total = 0;
+    for (int i = 0; i < productCounts.length; i++) {
+      total += productCounts[i] * productPrices[i];
+    }
+    return total;
+  }
+
+  void increment(int index) {
+    setState(() {
+      productCounts[index]++;
+      totalPrice = calculateTotalPrice();
+    });
+  }
+
+  void decrement(int index) {
+    if (productCounts[index] > 1) {
+      setState(() {
+        productCounts[index]--;
+        totalPrice = calculateTotalPrice();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +69,7 @@ class _CartScreenState extends State<CartScreen> {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
               ),
             ),
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 10),
             Column(
               children: [
                 for (int i = 0; i < pName.length; i++)
@@ -89,7 +121,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   ),
                                   Text(
-                                    "\$50.55",
+                                    "\$${(productCounts[i] * productPrices[i]).toStringAsFixed(2)}",
                                     style: TextStyle(
                                       color: Colors.redAccent,
                                       fontSize: 18,
@@ -101,7 +133,7 @@ class _CartScreenState extends State<CartScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    "Size:",
+                                    "Size: ",
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
@@ -130,9 +162,22 @@ class _CartScreenState extends State<CartScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Icon(CupertinoIcons.minus),
-                                        Text("01"),
-                                        Icon(CupertinoIcons.plus)
+                                        InkWell(
+                                          onTap: () {
+                                            decrement(i);
+                                          },
+                                          child: Icon(CupertinoIcons.minus),
+                                        ),
+                                        Text(productCounts[i].toString()),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            increment(i);
+                                          },
+                                          child: Icon(CupertinoIcons.plus),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -146,9 +191,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -160,9 +203,8 @@ class _CartScreenState extends State<CartScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                
                 Text(
-                  "\$300",
+                  '\$${totalPrice.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: Colors.redAccent,
                     fontWeight: FontWeight.bold,
@@ -171,9 +213,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Row(
               children: [
                 Container(
@@ -183,25 +223,28 @@ class _CartScreenState extends State<CartScreen> {
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.redAccent,
                   ),
-                  child: Align(
-                    alignment: Alignment.center,
-                 
-                    child: Text(
-                      "Ordere Now",
+
+                  child: InkWell(
+                    onTap: () {
                       
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
+                      
+                    },
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Order Now",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
                 )
               ],
             ),
-            SizedBox(
-              height: 40,
-            )
+            SizedBox(height: 40),
           ],
         ),
       ),

@@ -44,30 +44,25 @@ class _Category3LoopState extends State<Category3Loop> {
         future: futureData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator()); // Show loading
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}')); // Show error
+            return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No data found')); // No data
+            return Center(child: Text('No data found'));
           }
 
-          // If we have data, display it in a Row
           products = snapshot.data;
-          return SingleChildScrollView( 
+          return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-
-
-
-          // Enable horizontal scrolling
             child: Row(
               children: [
-                for (int i = 0; i < products!.length; i++) // Limit to 6 items
+                for (int i = 0; i < products!.length; i++)
                   Container(
                     width: 120,
-                     height: 130,
+                    height: 130,
                     margin: EdgeInsets.all(8.0),
-                    
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 10),
+                    padding: EdgeInsets.only(
+                        left: 20, right: 20, bottom: 30, top: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: Colors.white,
@@ -80,9 +75,8 @@ class _Category3LoopState extends State<Category3Loop> {
                     ),
                     child: Column(
                       children: [
-                        Image.network(products![i]['image'], fit: BoxFit.cover), // Display image
+                        Image.network(products![i]['image'], fit: BoxFit.cover),
                         SizedBox(height: 5),
-                        
                       ],
                     ),
                   ),
